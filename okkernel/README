@@ -1,0 +1,70 @@
+================================================================
+prepare
+================================================================
+
+For the first time, you should download cross toolchains and set CROSS_TOOLCHAINS variable
+$ source prepare_toolchains.sh
+
+If you have cross toolchains, just set
+$ export CROSS_TOOLCHAINS=path/to/your/toolchains
+
+Note: ARM_CROSS_COMPILE means the tools compiling code running in ARM9
+      HOST_CROSS_COMPILE means the tools compiling code running in host(A53 or X86)
+      if PCIe mode, you maybe use x86 linux gcc
+      if SoC mode, you maybe use x86-arm cross compiler
+
+OKKernel depends on the following files
+1) header files
+okk.h  bmlib_runtime.h
+
+2) libraries
+PCIe mode (pcie version):
+libbmlib.so  firmware.a(or firmware_en_icache.a)
+
+SoC mode (soc version):
+libbmlib.so  firmware.a(or firmware_en_icache.a)
+
+C-Model mode (cmodel version):
+libbmlib.so
+
+================================================================
+compile
+================================================================
+
+compile parameter |   option           default
+------------------|---------------------------------
+HOST_ARCH         |   x86/aarch64        x86
+USING_CMODEL      |    0/1                0
+DEBUG             |    0/1                0
+ENABLE_ICACHE     |    0/1                0
+
+
+$ cd okkernel
+
+PCIe mode:
+$ make okk
+
+SoC mode:
+$ make okk HOST_ARCH=aarch64
+
+C-Model mode:
+$ make okk USING_CMODEL=1
+
+================================================================
+run
+================================================================
+0
+If SoC mode, copy "build" and "lib" to SoC environment.
+export LD_LIBRARY_PATH=/path/to/lib/
+
+1
+$ cd ./build/soc/
+$ ./load_firmware
+or
+$ ./build/soc/load_firmware  path/to/firmware_tcm.bin  path/to/firmware_ddr.bin
+update fireware code, if in C-Model mode, this step can be skipped.
+
+2
+$ ./build/cmodel/hello_world #for cmodel mode
+$ ./build/pcie/hello_world #for pcie model
+
