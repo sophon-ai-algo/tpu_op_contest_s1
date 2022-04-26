@@ -12,12 +12,8 @@
 #else
 #define MAXIT (100)
 #endif
-
 typedef struct {
-    int n;
-    int c;
-    int h;
-    int w;
+    int N, C, H, W;
     int axis_list[4];
     int axis_num;
     unsigned long long output_addr;
@@ -73,8 +69,8 @@ void reduce_sum(T *output, const T *input, const T init_val, const param_t &para
         }
     }
 
-    int input_shape[4] = {param.n, param.c, param.h, param.w};
-    int trans_shape[4] = {param.n, param.c, param.h, param.w};
+    int input_shape[4] = {param.N, param.C, param.H, param.W};
+    int trans_shape[4] = {param.N, param.C, param.H, param.W};
     int axis_list[4] = {0};
     memcpy(axis_list, param.axis_list, sizeof(int)*param.axis_num);
 
@@ -121,8 +117,8 @@ int reduce_sum(bm_handle_t &handle, param_t &param, const char *device_func_name
     rng.seed(std::random_device()());
     std::uniform_real_distribution<float> dist_value{-1.f, 1.f};
 
-    int input_len = param.n*param.c*param.h*param.w;
-    int output_shape[4] = {param.n, param.c, param.h, param.w};
+    int input_len = param.N*param.C*param.H*param.W;
+    int output_shape[4] = {param.N, param.C, param.H, param.W};
     int output_len = 1;
     for (int i = 0; i < param.axis_num; ++i) {
         output_shape[param.axis_list[i]] = 1;
@@ -142,14 +138,9 @@ int reduce_sum(bm_handle_t &handle, param_t &param, const char *device_func_name
     float* output_ref = new float[output_len];
     for(int i=0; i<input_len; i++) {
         input_host[i] = dist_value(rng);
-        std::cout<<" "<<input_host[i];
     }
-    std::cout<<std::endl;
+
     reduce_sum_reference(output_ref, input_host, param);
-    for(int i=0; i<output_len; i++) {
-        std::cout<<" "<<output_ref[i];
-    }
-    std::cout<<std::endl;
     BMLIB_SAFE_CALL(bm_memcpy_s2d(handle, input_dev, input_host));
 
     // launch kernel function
@@ -167,16 +158,11 @@ int reduce_sum(bm_handle_t &handle, param_t &param, const char *device_func_name
     BMLIB_SAFE_CALL(bm_memcpy_d2s(handle, output_host, output_dev));
     bool pass = true;
     for (int i = 0; i < output_len; ++i) {
-        std::cout<<" "<<output_host[i];
-    }
-    std::cout<<std::endl;
-    for (int i = 0; i < output_len; ++i) {
         if (!std::isfinite(output_host[i]) && !std::isfinite(output_ref[i]))
             continue;
         float max_val = std::max(std::fabs(output_host[i]), std::fabs(output_ref[i]));
         if (!(std::fabs(output_host[i] - output_ref[i]) < 1e-2 * std::max(max_val, 1.f))) {
             pass = false;
-            std::cout<<"index: "<<i<<" output: "<<output_host[i]<<" outref: "<<output_ref[i]<<std::endl;
             break;
         }
     }
@@ -191,65 +177,45 @@ int reduce_sum(bm_handle_t &handle, param_t &param, const char *device_func_name
     delete [] input_host;
     delete [] output_host;
     delete [] output_ref;
-    return 0;
-    //return res;
+    return res;
 }
 
 int main() {
     bm_handle_t handle;
     // Initialize.
     BMLIB_SAFE_CALL(bm_dev_request(&handle, 0));
-    param_t param = {1, 2, 2, 3, {1}, 1};
-
-    reduce_sum(handle, param, "reduce_sum_demo");
-    // demo
-//    param_t param;
-//    param.dims_size = 1;
-//    param.dims = new int[1];
-//    param.dims[0] = 0;
-//    param.input_dim_size = 3;
-//    param.input_dim = new int[3];
-//    param.input_dim[0] = 3;
-//    param.input_dim[1] = 4;
-//    param.input_dim[2] = 5;
-//    if (reduce_sum(handle, param, "reduce_sum_demo") >= 0)
-//        std::cout << "reduce_sum_demo pass" << std::endl;
-//    else
-//        std::cout << "reduce_sum_demo fail" << std::endl;
-//    delete [] param.dims;
-//    delete [] param.input_dim;
-
 
     ////////////////////////////////////////////////////////////////////////
     /// CONTEST CASES
     /// ////////////////////////////////////////////////////////////////////
-//    param_t params[] = {
-//        {.left_rows = 2,      .left_cols = 100352, .right_cols = 2048 }, // 0
-//        {.left_rows = 2,      .left_cols = 1280,   .right_cols = 1000 }, // 1
-//        {.left_rows = 2,      .left_cols = 25088,  .right_cols = 4096 }, // 2
-//        {.left_rows = 4,      .left_cols = 1024,   .right_cols = 25088}, // 3
-//        {.left_rows = 32,     .left_cols = 2048,   .right_cols = 36   }, // 4
-//        {.left_rows = 64,     .left_cols = 9216,   .right_cols = 4096 }, // 5
-//        {.left_rows = 79,     .left_cols = 256,    .right_cols = 4090 }, // 6
-//        {.left_rows = 200,    .left_cols = 4096,   .right_cols = 324  }, // 7
-//        {.left_rows = 256,    .left_cols = 768,    .right_cols = 3072 }, // 8
-//        {.left_rows = 256,    .left_cols = 3072,   .right_cols = 768  }, // 9
-//        {.left_rows = 300,    .left_cols = 2048,   .right_cols = 80   }, // 10
-//        {.left_rows = 1024,   .left_cols = 1024,   .right_cols = 1024 }, // 11
-//        {.left_rows = 2048,   .left_cols = 4,      .right_cols = 1024 }, // 12
-//        {.left_rows = 12544,  .left_cols = 2,      .right_cols = 1024 }, // 13
-//        {.left_rows = 100352, .left_cols = 1024,   .right_cols = 1    }, // 14
-//    };
-//    int results[sizeof(params) / sizeof(param_t)];
-//    for (unsigned int i = 0; i < sizeof(params) / sizeof(param_t); ++i) {
-//        int res = reduce_sum(handle, params[i], "reduce_sum_contest");
-//        if (res >= 0)
-//            std::cout << "case " << i << " pass" << std::endl;
-//        else
-//            std::cout << "case " << i << " fail" << std::endl;
-//        results[i] = res;
-//    }
-//    (void)(results);
+    param_t params[] = {
+        {.N=1, .C=68,  .H=4,   .W=18,  .axis_list={2},      .axis_num=1 },
+        {.N=1, .C=64,  .H=128, .W=256, .axis_list={3},      .axis_num=1 },
+        {.N=1, .C=32,  .H=64,  .W=800, .axis_list={3},      .axis_num=1 },
+        {.N=1, .C=64,  .H=32,  .W=400, .axis_list={2},      .axis_num=1 },
+        {.N=1, .C=32,  .H=200, .W=200, .axis_list={2},      .axis_num=1 },
+        {.N=1, .C=38,  .H=38,  .W=512, .axis_list={3},      .axis_num=1 },
+        {.N=1, .C=64,  .H=128, .W=128, .axis_list={1},      .axis_num=1 },
+        {.N=1, .C=160, .H=16,  .W=200, .axis_list={2},      .axis_num=1 },
+        {.N=1, .C=256, .H=50,  .W=50,  .axis_list={2},      .axis_num=1 },
+        {.N=1, .C=128, .H=32,  .W=32,  .axis_list={1},      .axis_num=1 },
+        {.N=1, .C=1280,.H=7,   .W=7,   .axis_list={3},      .axis_num=1 },
+        {.N=1, .C=80,  .H=16,  .W=200, .axis_list={2},      .axis_num=1 },
+        {.N=1, .C=160, .H=1,   .W=200, .axis_list={3},      .axis_num=1 },
+        {.N=1, .C=1280,.H=7,   .W=7,   .axis_list={0,2},    .axis_num=2 },
+        {.N=1, .C=64,  .H=128, .W=256, .axis_list={0,2,3},  .axis_num=3 },
+        {.N=1, .C=160, .H=16,  .W=200, .axis_list={0,1,2,3},.axis_num=4 },
+    };
+    int results[sizeof(params) / sizeof(param_t)];
+    for (unsigned int i = 0; i < sizeof(params) / sizeof(param_t); ++i) {
+        int res = reduce_sum(handle, params[i], "reduce_sum_contest");
+        if (res >= 0)
+            std::cout << "case " << i << " pass" << std::endl;
+        else
+            std::cout << "case " << i << " fail" << std::endl;
+        results[i] = res;
+    }
+    (void)(results);
     // Deinitialize.
     bm_dev_free(handle);
     return 0;

@@ -19,7 +19,7 @@ typedef struct {
 } __attribute__((packed)) param_t;
 
 
-static inline void bgr2rgb_reference(float *output, const float *input, const param_t &param) {
+static inline void rgb2bgr_reference(float *output, const float *input, const param_t &param) {
     for(unsigned int i = 0; i < param.size; i++) {
         output[i*3+2] = input[i*3];
         output[i*3+1] = input[i*3+1];
@@ -27,7 +27,7 @@ static inline void bgr2rgb_reference(float *output, const float *input, const pa
     }
 }
 
-int bgr2rgb(bm_handle_t &handle, param_t &param, const char *device_func_name) {
+int rgb2bgr(bm_handle_t &handle, param_t &param, const char *device_func_name) {
     std::mt19937 rng;
     rng.seed(std::random_device()());
     std::uniform_real_distribution<float> dist_value{-1.f, 1.f};
@@ -46,7 +46,7 @@ int bgr2rgb(bm_handle_t &handle, param_t &param, const char *device_func_name) {
     for(unsigned long long i=0; i<len; i++) {
         input_host[i] = dist_value(rng);
     }
-    bgr2rgb_reference(output_ref, input_host, param);
+    rgb2bgr_reference(output_ref, input_host, param);
     BMLIB_SAFE_CALL(bm_memcpy_s2d(handle, input_dev, input_host));
 
     // launch kernel function
@@ -69,7 +69,6 @@ int bgr2rgb(bm_handle_t &handle, param_t &param, const char *device_func_name) {
         float max_val = std::max(std::fabs(output_host[i]), std::fabs(output_ref[i]));
         if (!(std::fabs(output_host[i] - output_ref[i]) < 1e-2 * std::max(max_val, 1.f))) {
             pass = false;
-            std::cout<<"index: "<<i<<" output: "<<output_host[i]<<" outref: "<<output_ref[i]<<std::endl;
             break;
         }
     }
@@ -109,12 +108,12 @@ int main() {
         {.size = 11184808  }, // 10
         {.size = 33554432  }, // 11
         {.size = 67108864  }, // 12
-        {.size = 335544320 }, // 13
-        {.size = 3355443200}, // 14
+        {.size = 135544320 }, // 13
+        {.size = 243523506 }, // 14
     };
     int results[sizeof(params) / sizeof(param_t)];
     for (unsigned int i = 0; i < sizeof(params) / sizeof(param_t); ++i) {
-        int res = bgr2rgb(handle, params[i], "bgr2rgb_contest");
+        int res = rgb2bgr(handle, params[i], "rgb2bgr_contest");
         if (res >= 0)
             std::cout << "case " << i << " pass" << std::endl;
         else

@@ -9,14 +9,11 @@
 #define NPU_NUM okk_npu_num()
 #define NO_USE 0
 typedef struct {
-    int N, IC, OC, H, W;
-    int kernel_h, kernel_w;
-    int pad_top, pad_bottom, pad_left, pad_right;
-    int stride_h, stride_w;
-    int dilation_h, dilation_w;
+    int N, C, H, W;
+    int axis_list[4];
+    int axis_num;
     unsigned long long output_addr;
     unsigned long long input_addr;
-    unsigned long long kernel_addr;
 } __attribute__((packed)) param_t;
 
 void reduce_sum_contest(const void *args) {
