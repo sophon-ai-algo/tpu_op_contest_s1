@@ -63,7 +63,7 @@ int bgr2rgb(bm_handle_t &handle, param_t &param, const char *device_func_name) {
     // copy output from device to host
     BMLIB_SAFE_CALL(bm_memcpy_d2s(handle, output_host, output_dev));
     bool pass = true;
-    for (int i = 0; i < len; ++i) {
+    for (unsigned long long i = 0; i < len; ++i) {
         if (!std::isfinite(output_host[i]) && !std::isfinite(output_ref[i]))
             continue;
         float max_val = std::max(std::fabs(output_host[i]), std::fabs(output_ref[i]));
