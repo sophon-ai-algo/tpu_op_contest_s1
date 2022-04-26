@@ -189,22 +189,21 @@ int main() {
     /// CONTEST CASES
     /// ////////////////////////////////////////////////////////////////////
     param_t params[] = {
-        {.N=1, .C=68,  .H=4,   .W=18,  .axis_list={2},      .axis_num=1 },
-        {.N=1, .C=64,  .H=128, .W=256, .axis_list={3},      .axis_num=1 },
-        {.N=1, .C=32,  .H=64,  .W=800, .axis_list={3},      .axis_num=1 },
-        {.N=1, .C=64,  .H=32,  .W=400, .axis_list={2},      .axis_num=1 },
-        {.N=1, .C=32,  .H=200, .W=200, .axis_list={2},      .axis_num=1 },
-        {.N=1, .C=38,  .H=38,  .W=512, .axis_list={3},      .axis_num=1 },
-        {.N=1, .C=64,  .H=128, .W=128, .axis_list={1},      .axis_num=1 },
-        {.N=1, .C=160, .H=16,  .W=200, .axis_list={2},      .axis_num=1 },
-        {.N=1, .C=256, .H=50,  .W=50,  .axis_list={2},      .axis_num=1 },
-        {.N=1, .C=128, .H=32,  .W=32,  .axis_list={1},      .axis_num=1 },
-        {.N=1, .C=1280,.H=7,   .W=7,   .axis_list={3},      .axis_num=1 },
-        {.N=1, .C=80,  .H=16,  .W=200, .axis_list={2},      .axis_num=1 },
-        {.N=1, .C=160, .H=1,   .W=200, .axis_list={3},      .axis_num=1 },
-        {.N=1, .C=1280,.H=7,   .W=7,   .axis_list={0,2},    .axis_num=2 },
-        {.N=1, .C=64,  .H=128, .W=256, .axis_list={0,2,3},  .axis_num=3 },
-        {.N=1, .C=160, .H=16,  .W=200, .axis_list={0,1,2,3},.axis_num=4 },
+        {.N=1, .C=68,  .H=4,   .W=18,  .axis_list={2},      .axis_num=1 },  //0
+        {.N=1, .C=64,  .H=128, .W=256, .axis_list={3},      .axis_num=1 },  //1
+        {.N=1, .C=32,  .H=64,  .W=800, .axis_list={3},      .axis_num=1 },  //2
+        {.N=1, .C=64,  .H=32,  .W=400, .axis_list={2},      .axis_num=1 },  //3
+        {.N=1, .C=32,  .H=200, .W=200, .axis_list={2},      .axis_num=1 },  //4
+        {.N=1, .C=38,  .H=38,  .W=512, .axis_list={3},      .axis_num=1 },  //5
+        {.N=1, .C=64,  .H=128, .W=128, .axis_list={1},      .axis_num=1 },  //6
+        {.N=1, .C=160, .H=16,  .W=200, .axis_list={2},      .axis_num=1 },  //7
+        {.N=1, .C=256, .H=50,  .W=50,  .axis_list={2},      .axis_num=1 },  //8
+        {.N=1, .C=1280,.H=7,   .W=7,   .axis_list={3},      .axis_num=1 },  //9
+        {.N=1, .C=80,  .H=16,  .W=200, .axis_list={2},      .axis_num=1 },  //10
+        {.N=1, .C=160, .H=1,   .W=200, .axis_list={3},      .axis_num=1 },  //11
+        {.N=1, .C=1280,.H=7,   .W=7,   .axis_list={0,2},    .axis_num=2 },  //12
+        {.N=1, .C=64,  .H=128, .W=256, .axis_list={0,2,3},  .axis_num=3 },  //13
+        {.N=1, .C=160, .H=16,  .W=200, .axis_list={0,1,2,3},.axis_num=4 },  //14
     };
     int results[sizeof(params) / sizeof(param_t)];
     for (unsigned int i = 0; i < sizeof(params) / sizeof(param_t); ++i) {

@@ -125,21 +125,21 @@ int main() {
     /// CONTEST CASES
     /// ////////////////////////////////////////////////////////////////////
     param_t params[] = {
-        {.N=1,  .C=40,  .H=40,  .W=40,  .kernel_h=40,   .kernel_w=40,   .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0},
-        {.N=1,  .C=1024,.H=32,  .W=32,  .kernel_h=16,   .kernel_w=16,   .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=16, .stride_w=16, .ceil_mode=0, .count_include_pad=0},
-        {.N=1,  .C=2048,.H=28,  .W=28,  .kernel_h=28,   .kernel_w=28,   .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0},
-        {.N=1,  .C=64,  .H=22,  .W=92,  .kernel_h=5,    .kernel_w=5,    .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=5,  .stride_w=5,  .ceil_mode=0, .count_include_pad=0},
-        {.N=1,  .C=42,  .H=111, .W=111, .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=2,  .stride_w=2,  .ceil_mode=0, .count_include_pad=0},
-        {.N=1,  .C=2048,.H=5,   .W=5,   .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0},
-        {.N=1,  .C=1008,.H=28,  .W=28,  .kernel_h=1,    .kernel_w=1,    .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=2,  .stride_w=2,  .ceil_mode=0, .count_include_pad=0},
-        {.N=300,.C=2048,.H=7,   .W=7,   .kernel_h=7,    .kernel_w=7,    .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0},
-        {.N=300,.C=1024,.H=4,   .W=4,   .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0},
-        {.N=1,  .C=320, .H=25,  .W=32,  .kernel_h=25,   .kernel_w=32,   .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0},
-        {.N=1,  .C=192, .H=100, .W=75,  .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=1, .count_include_pad=0},
-        {.N=1,  .C=288, .H=63,  .W=63,  .kernel_h=3,    .kernel_w=3,    .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=1, .count_include_pad=0},
-        {.N=1,  .C=1024,.H=4,   .W=4,   .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=1, .count_include_pad=1},
-        {.N=1,  .C=1546,.H=5,   .W=5,   .kernel_h=7,    .kernel_w=7,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=1},
-        {.N=1,  .C=32,  .H=1,   .W=156, .kernel_h=1,    .kernel_w=4,    .pad_top=0, .pad_bottom=0, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=2,  .ceil_mode=0, .count_include_pad=1},
+        {.N=1,  .C=40,  .H=40,  .W=40,  .kernel_h=40,   .kernel_w=40,   .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0}, //0
+        {.N=1,  .C=1024,.H=32,  .W=32,  .kernel_h=16,   .kernel_w=16,   .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=16, .stride_w=16, .ceil_mode=0, .count_include_pad=0}, //1
+        {.N=1,  .C=2048,.H=28,  .W=28,  .kernel_h=28,   .kernel_w=28,   .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0}, //2
+        {.N=1,  .C=64,  .H=22,  .W=92,  .kernel_h=5,    .kernel_w=5,    .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=5,  .stride_w=5,  .ceil_mode=0, .count_include_pad=0}, //3
+        {.N=1,  .C=42,  .H=111, .W=111, .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=2,  .stride_w=2,  .ceil_mode=0, .count_include_pad=0}, //4
+        {.N=1,  .C=2048,.H=5,   .W=5,   .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0}, //5
+        {.N=1,  .C=1008,.H=28,  .W=28,  .kernel_h=1,    .kernel_w=1,    .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=2,  .stride_w=2,  .ceil_mode=0, .count_include_pad=0}, //6
+        {.N=300,.C=2048,.H=7,   .W=7,   .kernel_h=7,    .kernel_w=7,    .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0}, //7
+        {.N=300,.C=1024,.H=4,   .W=4,   .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0}, //8
+        {.N=1,  .C=320, .H=25,  .W=32,  .kernel_h=25,   .kernel_w=32,   .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=0}, //9
+        {.N=1,  .C=192, .H=100, .W=75,  .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=1, .count_include_pad=0}, //10
+        {.N=1,  .C=288, .H=63,  .W=63,  .kernel_h=3,    .kernel_w=3,    .pad_top=0, .pad_bottom=0, .pad_left=0, .pad_right=0, .stride_h=1,  .stride_w=1,  .ceil_mode=1, .count_include_pad=0}, //11
+        {.N=1,  .C=1024,.H=4,   .W=4,   .kernel_h=3,    .kernel_w=3,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=1, .count_include_pad=1}, //12
+        {.N=1,  .C=1546,.H=5,   .W=5,   .kernel_h=7,    .kernel_w=7,    .pad_top=1, .pad_bottom=1, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=1,  .ceil_mode=0, .count_include_pad=1}, //13
+        {.N=1,  .C=32,  .H=1,   .W=156, .kernel_h=1,    .kernel_w=4,    .pad_top=0, .pad_bottom=0, .pad_left=1, .pad_right=1, .stride_h=1,  .stride_w=2,  .ceil_mode=0, .count_include_pad=1}, //14
     };
     int results[sizeof(params) / sizeof(param_t)];
     for (unsigned int i = 0; i < sizeof(params) / sizeof(param_t); ++i) {
