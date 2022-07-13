@@ -1,11 +1,11 @@
 ## Best result:
-* Best score is 1191
-* svn update at: Sun Jul 10 17:26:20 CST 2022
+* Best score is 1153
+* svn update at: Wed Jul 13 18:34:11 CST 2022
 * avgpool :  
-(case0:60) ,(case1:320) ,(case2:439) ,(case3:87) ,(case4:261) ,(case5:130) ,(case6:272) ,(case7:4667) ,(case8:1862) ,(case9:110) ,(case10:688) ,(case11:619) ,(case12:66) ,(case13:75) ,(case14:73) 
+(case0:59) ,(case1:319) ,(case2:406) ,(case3:83) ,(case4:237) ,(case5:114) ,(case6:246) ,(case7:4533) ,(case8:1803) ,(case9:91) ,(case10:689) ,(case11:539) ,(case12:67) ,(case13:77) ,(case14:75) 
 * reducesum :  
-(case0:50) ,(case1:503) ,(case2:473) ,(case3:246) ,(case4:319) ,(case5:261) ,(case6:820) ,(case7:178) ,(case8:201) ,(case9:52) ,(case10:76) ,(case11:46) ,(case12:50) ,(case13:511) ,(case14:186) 
+(case0:49) ,(case1:485) ,(case2:476) ,(case3:212) ,(case4:319) ,(case5:264) ,(case6:823) ,(case7:175) ,(case8:207) ,(case9:52) ,(case10:76) ,(case11:45) ,(case12:50) ,(case13:510) ,(case14:181) 
 * rgb2bgr :  
-(case0:59) ,(case1:143) ,(case2:793) ,(case3:1718) ,(case4:171) ,(case5:53601) ,(case6:41283) ,(case7:107001) ,(case8:13522) ,(case9:46) ,(case10:213863) ,(case11:641347) ,(case12:1282740) ,(case13:2153322) ,(case14:3261909) 
+(case0:54) ,(case1:114) ,(case2:787) ,(case3:1720) ,(case4:162) ,(case5:53605) ,(case6:41408) ,(case7:107031) ,(case8:13520) ,(case9:47) ,(case10:213820) ,(case11:641330) ,(case12:1282714) ,(case13:2154708) ,(case14:3261943) 
 * transpose :  
-(case0:38) ,(case1:877376) ,(case2:11510) ,(case3:2054913) ,(case4:125650) ,(case5:121) ,(case6:134) ,(case7:8975) ,(case8:431) ,(case9:1292) ,(case10:874) ,(case11:578) ,(case12:151) ,(case13:1293) ,(case14:790) 
+(case0:46) ,(case1:558376) ,(case2:11521) ,(case3:1302798) ,(case4:125999) ,(case5:32) ,(case6:32) ,(case7:32) ,(case8:32) ,(case9:32) ,(case10:32) ,(case11:32) ,(case12:32) ,(case13:32) ,(case14:32) 
